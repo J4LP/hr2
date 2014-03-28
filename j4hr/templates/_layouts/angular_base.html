@@ -8,7 +8,12 @@
     <meta name="description" content="{% block meta_description %}{% endblock %}">
     <meta name="author" content="{% block meta_author %}{% endblock %}">
     <meta name="viewport" content="width=device-width">
-    <base href="{% block base_href %}/{% endblock %}" />
+    {% if APPLICATION_ROOT %}
+        <base href="{% block base_href %}{{ APPLICATION_ROOT }}{% endblock %}" />
+    {% else %}
+        <base href="{% block base_href %}/{% endblock %}" />
+    {% endif %}
+
 
     <script type="text/javascript">
         var csrftoken = "{{ csrf_token() }}"
