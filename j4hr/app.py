@@ -22,7 +22,7 @@ app = Flask(__name__)
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 
 # The environment variable, either 'prod' or 'dev'
-env = os.environ.get('J4OHR2_ENV', 'dev')
+env = os.environ.get('J4HR2_ENV', 'dev')
 
 # Use the appropriate environment-specific settings
 app.config.from_object(
