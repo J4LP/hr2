@@ -10,7 +10,7 @@ common_css = Bundle(
 )
 
 application_js = Bundle(
-    "../bower_components/jquery/jquery.min.js",
+    "../bower_components/jquery/dist/jquery.min.js",
     "../bower_components/angular/angular.js",
     "../bower_components/angular-route/angular-route.js",
     "../bower_components/angular-bootstrap/ui-bootstrap.js",
@@ -25,14 +25,14 @@ application_js = Bundle(
 )
 
 home_js = Bundle(
-    "../bower_components/jquery/jquery.min.js",
+    "../bower_components/jquery/dist/jquery.min.js",
     "../bower_components/angular/angular.js",
     "../bower_components/bootstrap/dist/js/bootstrap.min.js",
     output="public/js/home.js"
 )
 
 admin_js = Bundle(
-    "../bower_components/jquery/jquery.min.js",
+    "../bower_components/jquery/dist/jquery.min.js",
     "../bower_components/angular/angular.js",
     "../bower_components/bootstrap/dist/js/bootstrap.min.js",
     "../bower_components/datatables/media/js/jquery.dataTables.js",
