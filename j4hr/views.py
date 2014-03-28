@@ -28,7 +28,7 @@ def apply(path):
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect('home')
+    return redirect(url_for('home'))
 
 @app.errorhandler(404)
 def page_not_found(e):
