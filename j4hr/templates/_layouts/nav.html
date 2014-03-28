@@ -16,7 +16,8 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administration <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('admin.index') }}">List users</a></li>
+                            <li><a href="{{ url_for('admin.index') }}">Dashboard</a></li>
+                            <li><a href="{{ url_for('admin.users') }}">List Users</a></li>
                         </ul>
                     </li>
                 {% endif %}

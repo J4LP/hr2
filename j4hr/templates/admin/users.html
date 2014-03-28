@@ -27,7 +27,7 @@
                     <td>{{ user.character }}</td>
                     <td>{{ user.corporation }}</td>
                     <td>{{ user.status }}</td>
-                    <td><a class="btn btn-sm btn-info" href="#">{{ icon('eye') }} Report</a></td>
+                    <td><a class="btn btn-sm btn-info" href="{{ url_for('admin.user_view', user_id=user.user_id) }}">{{ icon('eye') }} Profile</a></td>
                 </tr>
             {% endfor %}
 
