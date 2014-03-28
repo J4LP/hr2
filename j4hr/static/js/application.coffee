@@ -12,12 +12,12 @@ hrApp.constant 'config', {
   }
 
 hrApp.service 'ApplicationService', ->
-  @keyID = 3092205
-  @vCode = 'IL9c5vC4kDP1oWuwlSogYT3X5ZtFIvaXWy0wUu1kdPpXhtpQeyCTvvyby8ZSZaXy'
-  @characterID = 90721100
-  @characterName = 'Vadrin Hegirin'
-  @corporationID = 98114328
-  @corporationName = 'Fweddit'
+  @keyID = 0
+  @vCode = '0'
+  @characterID = 0
+  @characterName = ''
+  @corporationID = 0
+  @corporationName = ''
   return
 
 hrApp.service 'AlertsService', ($timeout) ->
@@ -41,8 +41,6 @@ hrApp.controller 'alertsCtrl', ($scope, AlertsService) ->
     $scope.alerts.splice(index, 1)
 
 hrApp.controller 'apiCtrl', ($http, $location, $scope, AlertsService, ApplicationService) ->
-  $scope.key_id = 3092205
-  $scope.vcode = 'IL9c5vC4kDP1oWuwlSogYT3X5ZtFIvaXWy0wUu1kdPpXhtpQeyCTvvyby8ZSZaXy'
   $scope.checkApiKey = ->
     if $scope.apiForm.$valid
       $http {method: 'POST', url: 'api/check_key', data: {'key_id': $scope.key_id, 'vcode': $scope.vcode}}

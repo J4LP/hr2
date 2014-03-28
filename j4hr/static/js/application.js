@@ -17,12 +17,12 @@
   });
 
   hrApp.service('ApplicationService', function() {
-    this.keyID = 3092205;
-    this.vCode = 'IL9c5vC4kDP1oWuwlSogYT3X5ZtFIvaXWy0wUu1kdPpXhtpQeyCTvvyby8ZSZaXy';
-    this.characterID = 90721100;
-    this.characterName = 'Vadrin Hegirin';
-    this.corporationID = 98114328;
-    this.corporationName = 'Fweddit';
+    this.keyID = 0;
+    this.vCode = '0';
+    this.characterID = 0;
+    this.characterName = '';
+    this.corporationID = 0;
+    this.corporationName = '';
   });
 
   hrApp.service('AlertsService', function($timeout) {
@@ -53,8 +53,6 @@
   });
 
   hrApp.controller('apiCtrl', function($http, $location, $scope, AlertsService, ApplicationService) {
-    $scope.key_id = 3092205;
-    $scope.vcode = 'IL9c5vC4kDP1oWuwlSogYT3X5ZtFIvaXWy0wUu1kdPpXhtpQeyCTvvyby8ZSZaXy';
     return $scope.checkApiKey = function() {
       if ($scope.apiForm.$valid) {
         return $http({
