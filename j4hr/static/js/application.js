@@ -136,7 +136,7 @@
       ApplicationService.corporationID = corporation.id;
       ApplicationService.corporationName = corporation.name;
       if (corporation.reddit) {
-        return $window.location.href = '/reddit/go';
+        return $window.location.href = $('base').attr('href') + 'reddit/go';
       } else {
         return $location.path('/apply/recap');
       }

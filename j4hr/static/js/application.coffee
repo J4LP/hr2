@@ -95,7 +95,7 @@ hrApp.controller 'corporationsCtrl', ($location, $http, $scope, $window, Applica
     ApplicationService.corporationID = corporation.id
     ApplicationService.corporationName = corporation.name
     if corporation.reddit
-      $window.location.href = '/reddit/go'
+      $window.location.href = $('base').attr('href') + 'reddit/go'
     else
       $location.path('/apply/recap')
 
