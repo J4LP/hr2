@@ -1,0 +1,67 @@
+
+{% extends "_layouts/base.html" %}
+{% block js %}
+    {% assets "home_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        <script>hrApp = angular.module('hrApp', [])</script>
+    {% endassets %}
+{% endblock %}
+{% block content %}
+    <div class="subline">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Human Resources</h2>
+            </div>
+            <div class="col-md-4">
+                <div class="input-group pull-right">
+                    <input class="form-control" type="text" placeholder="Quick User Search">
+                    <span class="input-group-btn">
+                        <a class="btn btn-primary" href="{{ url_for('admin.users') }}">{{ icon('list') }} User List</a>
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Pending applications</h3>
+                </div>
+                <div class="list-group">
+                    {% for app in pending_apps %}
+                        <a class="list-group-item" href="{{ url_for('admin.view_application', application_id=app._id|string()) }}">
+                            <img src="https://image.eveonline.com/Character/{{ app.applicant.character_id }}_32.jpg" class="img-circle pending-app-portrait" alt="{{ app.applicant.character_name }}">
+                            <strong>{{ app.applicant.character_name }}</strong> applied to <strong>{{ app.corporation.corporation_name }}</strong> {{ app.created_at|humanize }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Activity feed</h3>
+                </div>
+                <div class="list-group">
+                    {% for activity in activities|reverse %}
+                        <a class="list-group-item activity" {% if activity.link != '#' %}href="{{ activity.link }}"{% endif %}>
+                            <span class="activity-author">{{ activity.author }}</span> <span class="activity-action">{{ activity.action }}</span>
+                            <span class="activity-time">{{ icon('clock-o') }} {{ activity.created_at|humanize }}</span>
+                        </a>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Statistics</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

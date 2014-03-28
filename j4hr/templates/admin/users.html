@@ -1,0 +1,38 @@
+
+{% extends "_layouts/base.html" %}
+{% block js %}
+    {% assets "home_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        <script>hrApp = angular.module('hrApp', [])</script>
+    {% endassets %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="subline">{{ icon('list') }} User List</h2>
+        </div>
+    </div>
+    <table class="table table-vert-center">
+        <thead>
+        <tr>
+            <th>Character</th>
+            <th>Corporation</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.character }}</td>
+                    <td>{{ user.corporation }}</td>
+                    <td>{{ user.status }}</td>
+                    <td><a class="btn btn-sm btn-info" href="#">{{ icon('eye') }} Report</a></td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+
+{% endblock %}

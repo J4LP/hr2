@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-11">
+        <div class="progress">
+            <div class="progress-bar" style="width: 60%">Progress: 60%</div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <a href="#" class="btn btn-warning btn-xs btn-block">Reset</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="subline">Corporations <small>Apply now !</small></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2" ng-repeat="corporation in corporations">
+        <div class="thumbnail corporation">
+            <img ng-src="https://image.eveonline.com/Corporation/{[{corporation.id}]}_256.png" alt="{[{corporation.name}]}">
+            <div class="caption">
+                <h5>{[{corporation.name}]}</h5>
+                <a ng-click="pick(corporation.id)" class="btn btn-sm btn-primary btn-block" ><i class="fa fa-check"></i> Apply</a>
+            </div>
+        </div>
+    </div>
+</div>

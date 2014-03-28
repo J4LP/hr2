@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-11">
+        <div class="progress">
+            <div class="progress-bar" style="width: 90%">Progress: 90%</div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <a href="#" class="btn btn-warning btn-xs btn-block">Reset</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="subline">Recap <small>Is everything correct ?</small></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 recap-illustrations">
+        <img ng-src="https://image.eveonline.com/Character/{[{app.characterID}]}_256.jpg" alt="" class="thumbnail">
+        <i class="fa fa-arrow-right fa-3x"></i>
+        <img ng-src="https://image.eveonline.com/Corporation/{[{app.corporationID}]}_256.png" alt="" class="thumbnail">
+    </div>
+    <div class="col-md-6 col-md-offset-3">
+        <dl class="dl-horizontal text-center">
+            <dt>Applicant</dt>
+            <dd>{[{app.characterName}]}</dd>
+            <dt>Corporation</dt>
+            <dd>{[{app.corporationName}]}</dd>
+            <dt>Alliance</dt>
+            <dd>I Whip My Slaves Back and Forth</dd>
+            <div ng-show="app.redditUsername">
+                <dt>Reddit Username</dt>
+                <dd>{[{app.redditUsername}]}</dd>
+            </div>
+        </dl>
+        <h3 class="subline">Email</h3>
+        <p>Make sure this email is valid as we will need it to contact you when your application is reviewed.</p>
+        <input ng-model="email" type="email" class="form-control" name="email" id="email" placeholder="Email">
+        <h3 class="subline">Motivation</h3>
+        <p>Please write below why you wish to join us, who do you know, who could recommend you, etc...</p>
+        <textarea ng-model="motivation" class="form-control" name="motivation" id="motivation" rows="3"></textarea>
+        <br>
+        <a ng-click="apply()" class="btn btn-block btn-lg btn-success"><i class="fa fa-envelope"></i> Send application</a>
+        <br>
+    </div>
+</div>

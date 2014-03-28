@@ -1,0 +1,31 @@
+
+{% extends "_layouts/base.html" %}
+
+{% block page_title %}Server Error{% endblock %}
+
+{% block css %}
+<style type="text/css">
+  h1, p {
+    text-align: center;
+  }
+  h1 {
+    font-size: 64px;
+    margin: 20px 0 20px;
+  }
+  p {
+    font-size: 24px;
+    margin: 15px 0;
+  }
+  .content {
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h1>500 - Critical Server Error</h1>
+  <p>Yeah... That did not work as expected, sorry.</p>
+  <p>Want to <a href="{{ url_for('home') }}">go home</a> ?</p>
+</div>
+{% endblock %}

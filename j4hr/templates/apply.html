@@ -1,0 +1,11 @@
+
+{% extends "_layouts/angular_base.html" %}
+{% block base_href %}/apply{% endblock %}
+{% block js %}
+    {% assets "application_js" %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}
+{% block content %}
+    Hallo
+{% endblock %}

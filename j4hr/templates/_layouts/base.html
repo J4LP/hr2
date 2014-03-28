@@ -1,0 +1,59 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>{% block page_title %}J4HR{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="author" content="{% block meta_author %}{% endblock %}">
+    <meta name="viewport" content="width=device-width">
+    <base href="/" />
+
+    <script type="text/javascript">
+        var csrftoken = "{{ csrf_token() }}"
+        var allianceID = {{ ALLIANCE_ID }}
+    </script>
+
+    {% block js %}{% endblock %}
+
+    {% block css %}
+        {% assets "common_css" %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+        {% endassets %}
+    {% endblock %}
+
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    {% block body %}
+
+    {% include "_layouts/nav.html" %}
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="container messages-container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for category, message in messages %}
+                    {% if category == 'message' %}
+                        <div class="alert alert-info">
+                    {% else %}
+                        <div class="alert alert-{{ category }}">
+                    {% endif %}
+                        <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endwith %}
+    <div class="{% block content_class %}{% endblock content_class %} container">
+        {% block content %}{% endblock %}
+    </div>
+    {% endblock %}
+</body>
+</html>

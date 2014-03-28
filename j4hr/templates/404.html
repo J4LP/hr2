@@ -1,0 +1,37 @@
+
+<!doctype html>
+<html class="no-js" lang="en" ng-app="hrApp">
+<head>
+    <meta charset="utf-8">
+
+    <title>{% block page_title %}J4HR{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="author" content="{% block meta_author %}{% endblock %}">
+    <meta name="viewport" content="width=device-width">
+    <base href="/" />
+
+    {% assets "common_css" %}
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+    <style type="text/css">
+      h1, p {
+        text-align: center;
+      }
+      h1 {
+        font-size: 64px;
+        margin: 75px 0 50px;
+      }
+      p {
+        font-size: 24px;
+        margin: 15px 0;
+      }
+    </style>
+</head>
+<body>
+<h1>404</h1>
+<p>Sorry, that page doesn't exist.</p>
+<p>Want to <a href="{{ url_for('home') }}">go home</a> instead?</p>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-md-11">
+        <div class="progress">
+            <div class="progress-bar" style="width: 40%">Progress: 40%</div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <a href="#" class="btn btn-warning btn-xs btn-block">Reset</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="subline">Characters <small>Choose one</small></h2>
+        <div class="row" ng-show="!characters.length">
+            <div class="col-md-12">
+                <div class="spinner">
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4" ng-repeat="character in characters">
+                <div class="thumbnail character">
+                    <img ng-src="https://image.eveonline.com/Character/{[{character.characterID}]}_512.jpg" alt="{[{character.characterName}]}">
+                    <div class="caption">
+                        <h4>{[{character.characterName}]}</h4>
+                        <dl>
+                            <dt>Corporation</dt>
+                            <dd>{[{character.corporation}]}</dd>
+                            <dt>Alliance</dt>
+                            <dd ng-show="character.alliance.length">{[{character.alliance}]}</dd>
+                            <dd ng-show="!character.alliance.length">No alliance</dd>
+                        </dl>
+                        <a href ng-click="pick(character.characterID)" class="btn btn-block btn-success"><i class="fa fa-check"></i> Choose</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

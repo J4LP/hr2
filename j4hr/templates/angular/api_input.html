@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="progress">
+            <div class="progress-bar" style="width: 20%">Progress: 20%</div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <h2 class="subline">API Key</h2>
+        <p>For security reasons, we will ask and check for access to your mail, wallet transactions and other auditing data.</p>
+        <p>We will not share it with peers.</p>
+        <p>Please note that daily checks are in place and your access will be revoked if the system locates an incorrect API or at the discretion of the Alliance Leadership.</p>
+    </div>
+    <div class="col-md-12 text-center">
+        <h4><a href="https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=65544538" target="_blank">Generate an API Key here, without an EXPIRY set</a></h4>
+    </div>
+    <div class="col-md-12">
+        <form name="apiForm" class="form-horizontal col-md-8 col-md-offset-2 api-form" ng-submit="checkApiKey()" novalidate>
+            <div class="form-group" ng-class="{'has-error': apiForm.uKey_id.$dirty && apiForm.uKey_id.$invalid}">
+                <label for="key_id" class="col-sm-2 control-label">Key ID</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                        <input type="text" ng-model="key_id" class="form-control" id="uKey_id" name="uKey_id" placeholder="Your Key ID" required>
+                    </div>
+                    <div ng-show="apiForm.uKey_id.$dirty && apiForm.uKey_id.$invalid">
+                        <span class="help-block" ng-show="apiForm.uKey_id.$error.required">Key ID missing.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'has-error': apiForm.uVcode.$dirty && apiForm.uVcode.$invalid}">
+                <label for="vcode" class="col-sm-2 control-label">vCode</label>
+                <div class="col-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        <input type="text" ng-model="vcode" class="form-control" id="uVcode" name="uVcode" placeholder="Your Vcode" required>
+                    </div>
+                    <div ng-show="apiForm.uVcode.$dirty && apiForm.uVcode.$invalid">
+                        <span class="help-block" ng-show="apiForm.uVcode.$error.required">vCode missing.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button class="btn btn-success btn-block" type="submit"><i class="fa fa-check"></i> Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

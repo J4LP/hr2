@@ -1,0 +1,307 @@
+
+{% extends "_layouts/base.html" %}
+{% block js %}
+    {% assets "admin_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        <script>hrApp = angular.module('hrApp', [])</script>
+    {% endassets %}
+{% endblock %}
+{% block css %}
+    {{ super() }}
+    {% assets "admin_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="subline">Report <small>Last updated {{ report.finished_at|humanize }}</small></h2>
+        </div>
+    </div>
+    <div class="row">
+        {% for character in report.characters %}
+            <div class="col-md-4">
+                <div class="panel panel-default panel-report {% if report.main_character == character.characterName %}selected{% endif %}">
+                    <div class="panel-body">
+                        <div class="text-center">
+                            <a href="#">
+                                <img src="https://image.eveonline.com/Character/{{ character.characterID }}_128.jpg" class="img-thumbnail img-circle" alt="{{ character.characterName }}"/>
+                            </a>
+                            <h3>{{ character.characterName }} {% if report.main_character == character.characterName %}<span class="panel-report-star">{{ icon('star') }}</span>{% endif %}</h3>
+                        </div>
+                        <hr/>
+                        <dl>
+                            <dt>Corporation</dt>
+                            <dd>{{ character.corporation }}</dd>
+                            <dt>Alliance</dt>
+                            {% if character.alliance %}
+                                <dd>{{ character.alliance }}</dd>
+                            {% else %}
+                                <dd>No alliance</dd>
+                            {% endif %}
+                        </dl>
+                    </div>
+                    {% if report.main_character == character.characterName %}
+                        <a class="btn btn-block btn-lg btn-info js-switch-report" disabled href="#" data-character="{{ character.characterID }}">{{ icon('eye-slash') }} Viewing</a>
+                    {% else %}
+                        <a class="btn btn-block btn-lg btn-info js-switch-report" href="#" data-character="{{ character.characterID }}">{{ icon('eye') }} View</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% for character in report.characters %}
+        <div class="row report {% if report.main_character != character.characterName %}hidden{% endif %}" id="report-{{ character.characterID }}">
+            <div class="col-md-12 report-info">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Basic Info</h3>
+                    </div>
+                    <div class="panel-body">
+                        <dl class="dl-horizontal">
+                            <dt>Race</dt>
+                            <dd>{{ character.race }}</dd>
+                            <dt>Bloodline</dt>
+                            <dd>{{ character.bloodline }}</dd>
+                            <dt>Account Balance</dt>
+                            <dd>{{ "{:,}".format(character.accountBalance) }}</dd>
+                            <dt>Skill Points</dt>
+                            <dd>{{ "{:,}".format(character.skillPoints) }} SP</dd>
+                            <dt>Last Known Location</dt>
+                            <dd>{{ character.lastKnownLocation }} in {{ character.shipTypeName }}</dd>
+                            <dt>Security Status</dt>
+                            <dd>{{ "{0:.2f}".format(character.securityStatus) }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 report-history">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Corporation History</h3>
+                    </div>
+                    <div class="list-group report-history-group">
+                        {% for corporation in character.history %}
+                            <div class="list-group-item">
+                                <div class="list-group-item-text">
+                                    <img src="https://image.eveonline.com/Corporation/{{ corporation.corporation_id }}_64.png" width="32px" alt="{{ corporation.corporation_name }}" class="img-circle report-history-img">
+                                    {% if corporation.alliance_id %}
+                                        <img src="https://image.eveonline.com/Alliance/{{ corporation.alliance_id }}_64.png" width="32px" alt="{{ corporation.alliance_name }}" class="img-circle report-history-img">
+                                    {% else %}
+                                        <img src="https://image.eveonline.com/Alliance/1_64.png" width="32px" alt="No alliance" class="img-circle report-history-img">
+                                    {% endif %}
+                                    {{ corporation.corporation_name }}{% if corporation.alliance_id %} - {{ corporation.alliance_name }}{% endif %}
+                                    <span class="pull-right">Joined {{ corporation.start_date|date }}</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 report-contact">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Contacts</h3>
+                    </div>
+                    <div class="report-contact-list">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Standing</th>
+                                    <th>Contact name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contact in character.contacts|sort(attribute='standing', reverse=True)%}
+                                    <tr>
+                                        {% if contact.standing == 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-default report-contact-standing">{{ contact.standing }}</span></td>
+                                        {% elif contact.standing > 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-primary report-contact-standing">{{ contact.standing }}</span></td>
+                                        {% elif contact.standing < 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-danger report-contact-standing">{{ contact.standing }}</span></td>
+                                        {% endif %}
+                                        <td>{{ contact.contactName }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td width="10%" class="text-center"><span class="label label-default report-standing-standing">Ø</span></td>
+                                        <td>No information</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 report-standing">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Faction Standings</h3>
+                    </div>
+                    <div class="report-standing-list">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Standing</th>
+                                    <th>Faction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contact in character.standings.factions|sort(attribute='standing', reverse=True)%}
+                                    <tr>
+                                        {% if contact.standing == 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-default report-standing-standing">{{ contact.standing }}</span></td>
+                                        {% elif contact.standing > 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-primary report-standing-standing">{{ contact.standing }}</span></td>
+                                        {% elif contact.standing < 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-danger report-standing-standing">{{ contact.standing }}</span></td>
+                                        {% endif %}
+                                        <td>{{ contact.fromName }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td width="10%" class="text-center"><span class="label label-default report-standing-standing">Ø</span></td>
+                                        <td>No information</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Corporation Standings</h3>
+                    </div>
+                    <div class="report-standing-list">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Standing</th>
+                                    <th>Corporation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for contact in character.standings.NPCCorporations|sort(attribute='standing', reverse=True)%}
+                                    <tr>
+                                        {% if contact.standing == 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-default report-standing-standing">{{ contact.standing }}</span></td>
+                                        {% elif contact.standing > 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-primary report-standing-standing">{{ contact.standing }}</span></td>
+                                        {% elif contact.standing < 0 %}
+                                            <td width="10%" class="text-center"><span class="label label-danger report-standing-standing">{{ contact.standing }}</span></td>
+                                        {% endif %}
+                                        <td>{{ contact.fromName }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 report-wallet">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Wallet Journal</h3>
+                    </div>
+                    <table class="table report-wallet-table">
+                        <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Amount</th>
+                            <th>Raw amount</th>
+                            <th>Reason</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for transaction in character.wallet %}
+                                <tr>
+                                    <td>{{ transaction.ownerName1 }}</td>
+                                    <td>{{ transaction.ownerName2 }}</td>
+                                    <td>{{"{:,}".format(transaction.amount)}} ISK</td>
+                                    <td>{{ transaction.amount }}</td>
+                                    <td>{{ transaction.reason }}</td>
+                                    <td>{{ transaction.date|datetime}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-12 report-assets">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Assets</h3>
+                    </div>
+                    <table class="table report-assets-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Group</th>
+                                <th>Qty</th>
+                                <th>Base Price</th>
+                                <th>Raw Base Price</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for asset in character.assets %}
+                                <tr>
+                                    <td>{{ asset.item_name }}</td>
+                                    <td>{{ asset.group_name }}</td>
+                                    <td>{{ asset.quantity }}</td>
+                                    <td>{{"{:,}".format(asset.base_price)}} ISK</td>
+                                    <td>{{asset.base_price}}</td>
+                                    <td>{{ asset.location_name|truncate(20, True) }}</td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <script>
+        $(document).ready(function () {
+            $('.report-assets-table').dataTable({
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    { 'iDataSort': 4},
+                    { 'bVisible': false, 'bSearchable': false },
+                    null
+                ]
+            });
+            $('.report-wallet-table').dataTable({
+                "aoColumns": [
+                    null,
+                    null,
+                    { 'iDataSort': 3},
+                    { 'bVisible': false, 'bSearchable': false },
+                    null,
+                    null
+                ]
+            });
+            switch_default = '<i class="fa fa-eye"></i> View';
+            switch_active = '<i class="fa fa-eye-slash"></i> Viewing';
+            $panels = $('.panel-report');
+            $reports = $('.report');
+            $switches = $('.js-switch-report');
+            $switches.on('click', function (e) {
+                e.preventDefault();
+                $switches.html(switch_default);
+                $switches.removeAttr('disabled');
+                $panels.removeClass('selected');
+                $(this).html(switch_active);
+                $(this).attr('disabled', 'disabled');
+                $(this).parent('.panel-report').addClass('selected');
+                $reports.addClass('hidden');
+                $('#report-' + $(this).data('character')).removeClass('hidden');
+            })
+        })
+    </script>
+
+{% endblock %}

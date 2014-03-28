@@ -1,0 +1,12 @@
+{
+  "name": "j4hr",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap": "~3.1.0",
+    "angular": "~1.2.12",
+    "animate.css": "~3.0.0",
+    "angular-route": "~1.2.12",
+    "datatables-bootstrap3": "*",
+    "datatables": "~1.9.4"
+  }
+}

@@ -1,0 +1,20 @@
+
+{% extends "_layouts/base.html" %}
+{% block js %}
+    {% assets "home_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        <script>hrApp = angular.module('hrApp', [])</script>
+    {% endassets %}
+{% endblock %}
+{% block content %}
+    <h2 class="subline">Welcome to J4LP Human Resources</h2>
+    <p>Thanks you for your interest in joining one of our corporations ! Please follow all instructions carefully to avoid any issues with your application.</p>
+    <div class="row" ng-app="">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="well text-center home-well">
+                <i class="fa fa-rocket fa-3x home-icon" ng-class="iconClass"></i>
+                <a class="btn btn-lg btn-block btn-primary home-btn" href="{{ url_for('apply') }}" ng-mouseenter="iconClass = 'animated tada'" ng-mouseleave="iconClass = ''"><i class="fa fa-check"></i> Apply now</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
