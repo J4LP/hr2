@@ -7,6 +7,7 @@
     "animate.css": "~3.0.0",
     "angular-route": "~1.2.12",
     "datatables-bootstrap3": "*",
-    "datatables": "~1.9.4"
+    "datatables": "~1.9.4",
+    "bootbox": "~4.2.0"
   }
 }
