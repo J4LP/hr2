@@ -1,5 +1,7 @@
-Human Resources for your Eve Online alliance
+Human Resources
 ============================================
+
+Human Resources for your Eve Online alliance
 
 **This is a work in progress that needs a bit of setup to make it work correctly**
 
