@@ -1,37 +1,41 @@
-J4OAuth
-======
+Human Resources for your Eve Online alliance
+============================================
 
-OAuth2 Provider that plugs into your Eve Online alliance auth backend !
+**This is a work in progress that needs a bit of setup to make it work correctly**
 
-## Getting Started
-Clone the repository:
+## Instructions
 
-    git clone https://github.com/j4lp/j4oauth.git
-
-Install the dependencies (in a virtualenv):
-
+    # Clone the repository and create a new virtual environment
+    git clone https://github.com/J4LP/newauth
+    virtualenv .
     pip install -r requirements.txt
-
-Setup the settings:
-
-    cp j4oauth/settings_dist.py j4oauth/settings.py
-    vim j4oauth/settings.py
-
-Default env is 'dev', change it with J4OAUTH_ENV='prod'.
-
-Get [bower](http://bower.io/) and run it at the root folder:
-
+    # Edit the settings
+    cp j4hr/settings_dist.py j4hr/settings.py
+    # Get the assets with Bower
     bower install
+    # Build the assets
+    python manage.py assets build
+    # Build the corporation list and outposts
+    python manage.py update_corporations
+    python manage.py update_outposts
+    # Launch HR2
+    python run.py
 
-Run up the migrations and build the assets:
+## Preview
 
-    python manage.py db upgrade
-    python manage.py build_assets
+![Imgur](http://i.imgur.com/W4f7Hif.png)
 
-Launch j4oauth:
+## TODO
 
-    python run.py # Defaults on port 5000
+- [ ] Clean the assets system
+- [ ] Emails
+- [ ] NewAuth link
+- [ ] Admin statistics
+- [ ] Tests
 
+## Dependencies
+
+This project depends on MongoDB for storing applications and reports and use J4OAuth for the authentication backend.
 
 ## Contributing
 

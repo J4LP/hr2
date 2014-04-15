@@ -60,3 +60,4 @@ j4hr/bower_components/*
 !j4hr/bower_components/.gitkeep
 j4hr/static/public/css/common.css
 !env.py
+node_modules

@@ -23,14 +23,6 @@ module.exports = (grunt) ->
         }
       }
     }
-    protractor: {
-      options: {
-        args: {
-          framework: 'mocha'
-          specs: ['tests/karma/*.js']
-        }
-      }
-    }
     watch: {
       html: {
         files: ['j4hr/templates/angular/**.html'],
