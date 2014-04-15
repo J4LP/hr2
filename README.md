@@ -20,6 +20,7 @@ Human Resources for your Eve Online alliance
     python manage.py update_outposts
     # Launch HR2
     python run.py
+    # For production, set J4HR2_ENV='prod'.
 
 ## Preview
 
