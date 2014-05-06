@@ -83,6 +83,7 @@ def new_application():
         characters = eve.get_characters(public=True)
         for character in characters:
             if character.characterID == application_form.character_id.data:
+                character_sheet = character
                 break
         else:
             raise Exception('Character not found with provided API Key')
@@ -113,7 +114,11 @@ def new_application():
             'email': application_form.email.data,
             'key_id': application_form.key_id.data,
             'vcode': application_form.vcode.data,
-            'reddit_username': form_data.get('reddit_username', None)
+            'reddit_username': form_data.get('reddit_username', None),
+            'corporation_id': character_sheet.corporationID,
+            'corporation_name': character_sheet.corporation,
+            'alliance_id': character_sheet.__dict__.get('allianceID', None),
+            'alliance_name': character_sheet.__dict__.get('alliance', None)
         },
         'corporation': {
             'corporation_id': application_form.corporation_id.data,

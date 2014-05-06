@@ -21,9 +21,13 @@
                         <dt>Character Name</dt>
                         <dd>{{ application.applicant.character_name }}</dd>
                         <dt>Actual Corporation</dt>
-                        <dd>Dreddit</dd>
+                        <dd>{{ application.applicant.corporation_name }}</dd>
                         <dt>Actual Alliance</dt>
-                        <dd>Test Alliance Please Ignore</dd>
+                        {% if application.applicant.alliance_name %}
+                            <dd>{{ application.applicant.alliance_name }}</dd>
+                        {% else %}
+                            <dd>No alliance</dd>
+                        {% endif %}
                         {% if application.applicant.reddit_username %}
                             <dt>Reddit</dt>
                             <dd><a href="https://reddit.com/u/{{ application.applicant.reddit_username }}">{{ application.applicant.reddit_username }}</a></dd>
