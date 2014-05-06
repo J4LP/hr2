@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import arrow
-from flask import abort, render_template, session, redirect
+from flask import render_template, session, redirect, url_for
 from jinja2 import Markup
 from j4hr.admin import admin
 from j4hr.api import api
@@ -13,6 +13,7 @@ app.register_blueprint(api, url_prefix='/api')
 if app.config['REDDIT']['ENABLED']:
     from reddit import reddit
     app.register_blueprint(reddit, url_prefix='/reddit')
+
 
 @app.route('/')
 def home():
@@ -29,6 +30,7 @@ def apply(path):
 def logout():
     session.clear()
     return redirect(url_for('home'))
+
 
 @app.errorhandler(404)
 def page_not_found(e):
