@@ -28828,6 +28828,7 @@ angular.module("template/typeahead/typeahead-popup.html", []).run(["$templateCac
     "</ul>");
 }]);
 
+(function(){"use strict";var a=angular.module("LocalStorageModule",[]);a.provider("localStorageService",function(){this.prefix="ls",this.storageType="localStorage",this.cookie={expiry:30,path:"/"},this.notify={setItem:!0,removeItem:!1},this.setPrefix=function(a){this.prefix=a},this.setStorageType=function(a){this.storageType=a},this.setStorageCookie=function(a,b){this.cookie={expiry:a,path:b}},this.setStorageCookieDomain=function(a){this.cookie.domain=a},this.setNotify=function(a,b){this.notify={setItem:a,removeItem:b}},this.$get=["$rootScope","$window","$document",function(a,b,c){var d=this.prefix,e=this.cookie,f=this.notify,g=this.storageType,h=b[g];c||(c=document),"."!==d.substr(-1)&&(d=d?d+".":"");var i=function(){try{var c=g in b&&null!==b[g],e=d+"__"+Math.round(1e7*Math.random());return c&&(h.setItem(e,""),h.removeItem(e)),c}catch(f){return g="cookie",a.$broadcast("LocalStorageModule.notification.error",f.message),!1}}(),j=function(b,c){if(!i)return a.$broadcast("LocalStorageModule.notification.warning","LOCAL_STORAGE_NOT_SUPPORTED"),f.setItem&&a.$broadcast("LocalStorageModule.notification.setitem",{key:b,newvalue:c,storageType:"cookie"}),p(b,c);"undefined"==typeof c&&(c=null);try{(angular.isObject(c)||angular.isArray(c))&&(c=angular.toJson(c)),h.setItem(d+b,c),f.setItem&&a.$broadcast("LocalStorageModule.notification.setitem",{key:b,newvalue:c,storageType:this.storageType})}catch(e){return a.$broadcast("LocalStorageModule.notification.error",e.message),p(b,c)}return!0},k=function(b){if(!i)return a.$broadcast("LocalStorageModule.notification.warning","LOCAL_STORAGE_NOT_SUPPORTED"),q(b);var c=h.getItem(d+b);return c&&"null"!==c?"{"===c.charAt(0)||"["===c.charAt(0)?angular.fromJson(c):c:null},l=function(b){if(!i)return a.$broadcast("LocalStorageModule.notification.warning","LOCAL_STORAGE_NOT_SUPPORTED"),f.removeItem&&a.$broadcast("LocalStorageModule.notification.removeitem",{key:b,storageType:"cookie"}),r(b);try{h.removeItem(d+b),f.removeItem&&a.$broadcast("LocalStorageModule.notification.removeitem",{key:b,storageType:this.storageType})}catch(c){return a.$broadcast("LocalStorageModule.notification.error",c.message),r(b)}return!0},m=function(){if(!i)return a.$broadcast("LocalStorageModule.notification.warning","LOCAL_STORAGE_NOT_SUPPORTED"),!1;var b=d.length,c=[];for(var e in h)if(e.substr(0,b)===d)try{c.push(e.substr(b))}catch(f){return a.$broadcast("LocalStorageModule.notification.error",f.Description),[]}return c},n=function(b){b=b||"";var c=d.slice(0,-1),e=new RegExp(c+"."+b);if(!i)return a.$broadcast("LocalStorageModule.notification.warning","LOCAL_STORAGE_NOT_SUPPORTED"),s();var f=d.length;for(var g in h)if(e.test(g))try{l(g.substr(f))}catch(j){return a.$broadcast("LocalStorageModule.notification.error",j.message),s()}return!0},o=function(){try{return navigator.cookieEnabled||"cookie"in c&&(c.cookie.length>0||(c.cookie="test").indexOf.call(c.cookie,"test")>-1)}catch(b){return a.$broadcast("LocalStorageModule.notification.error",b.message),!1}},p=function(b,f){if("undefined"==typeof f)return!1;if(!o())return a.$broadcast("LocalStorageModule.notification.error","COOKIES_NOT_SUPPORTED"),!1;try{var g="",h=new Date,i="";if(null===f?(h.setTime(h.getTime()+-864e5),g="; expires="+h.toGMTString(),f=""):0!==e.expiry&&(h.setTime(h.getTime()+24*e.expiry*60*60*1e3),g="; expires="+h.toGMTString()),b){var j="; path="+e.path;e.domain&&(i="; domain="+e.domain),c.cookie=d+b+"="+encodeURIComponent(f)+g+j+i}}catch(k){return a.$broadcast("LocalStorageModule.notification.error",k.message),!1}return!0},q=function(b){if(!o())return a.$broadcast("LocalStorageModule.notification.error","COOKIES_NOT_SUPPORTED"),!1;for(var e=c.cookie&&c.cookie.split(";")||[],f=0;f<e.length;f++){for(var g=e[f];" "===g.charAt(0);)g=g.substring(1,g.length);if(0===g.indexOf(d+b+"="))return decodeURIComponent(g.substring(d.length+b.length+1,g.length))}return null},r=function(a){p(a,null)},s=function(){for(var a=null,b=d.length,e=c.cookie.split(";"),f=0;f<e.length;f++){for(a=e[f];" "===a.charAt(0);)a=a.substring(1,a.length);var g=a.substring(b,a.indexOf("="));r(g)}},t=function(){return g},u=function(a,b,c){var d=k(b);null===d&&angular.isDefined(c)?d=c:angular.isObject(d)&&angular.isObject(c)&&(d=angular.extend(c,d)),a[b]=d,a.$watchCollection(b,function(a){j(b,a)})};return{isSupported:i,getStorageType:t,set:j,add:j,get:k,keys:m,remove:l,clearAll:n,bind:u,cookie:{set:p,add:p,get:q,remove:r,clearAll:s}}}]})}).call(this);
 /*!
  * Bootstrap v3.1.1 (http://getbootstrap.com)
  * Copyright 2011-2014 Twitter, Inc.
@@ -28837,7 +28838,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 (function() {
   var hrApp;
 
-  hrApp = angular.module('hrApp', ['ngRoute', 'ui.bootstrap']);
+  hrApp = angular.module('hrApp', ['ngRoute', 'ui.bootstrap', 'LocalStorageModule']);
 
   hrApp.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{');
@@ -28852,13 +28853,45 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
     allianceID: window.allianceID
   });
 
-  hrApp.service('ApplicationService', function() {
-    this.keyID = 0;
-    this.vCode = '0';
-    this.characterID = 0;
-    this.characterName = '';
-    this.corporationID = 0;
-    this.corporationName = '';
+  hrApp.service('ApplicationService', function(localStorageService) {
+    this.defaults = {
+      'keyID': 0,
+      'vCode': '',
+      'characterID': 0,
+      'characterName': '',
+      'corporationID': 0,
+      'corporationName': '',
+      'redditKey': '',
+      'redditUsername': ''
+    };
+    this.getInt = function(key) {
+      return parseInt(localStorageService.get(key)) || this.defaults[key];
+    };
+    this.get = function(key) {
+      return localStorageService.get(key) || this.defaults[key];
+    };
+    this.set = function(key, value) {
+      return localStorageService.set(key, value);
+    };
+    this.reset = function() {
+      var k, key, keys, _i, _len, _results;
+      keys = [
+        (function() {
+          var _results;
+          _results = [];
+          for (k in this.defaults) {
+            _results.push(k);
+          }
+          return _results;
+        }).call(this)
+      ][0];
+      _results = [];
+      for (_i = 0, _len = keys.length; _i < _len; _i++) {
+        key = keys[_i];
+        _results.push(localStorageService.remove(key, this.defaults[key]));
+      }
+      return _results;
+    };
   });
 
   hrApp.service('AlertsService', function($timeout) {
@@ -28889,6 +28922,9 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
   });
 
   hrApp.controller('apiCtrl', function($http, $location, $scope, AlertsService, ApplicationService) {
+    console.log(ApplicationService.get('keyID'));
+    ApplicationService.set('keyID', 5432);
+    console.log(ApplicationService.getInt('keyID'));
     return $scope.checkApiKey = function() {
       if ($scope.apiForm.$valid) {
         return $http({
@@ -28900,8 +28936,8 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
           }
         }).success(function(data) {
           if (data.valid === true) {
-            ApplicationService.keyID = $scope.key_id;
-            ApplicationService.vCode = $scope.vcode;
+            ApplicationService.set('keyID', $scope.key_id);
+            ApplicationService.set('vCode', $scope.vcode);
             return $location.path('/apply/characters');
           }
         }).error(function(data, status, headers) {
@@ -28919,7 +28955,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
     $scope.characters = [];
     $http({
       method: 'GET',
-      url: "api/characters/" + ApplicationService.keyID + "/" + ApplicationService.vCode
+      url: "api/characters/" + (ApplicationService.getInt('keyID')) + "/" + (ApplicationService.get('vCode'))
     }).success(function(data) {
       return $scope.characters = data.characters;
     }).error(function(data, status, headers) {
@@ -28930,15 +28966,16 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
       }
     });
     return $scope.pick = function(characterID) {
-      var character, _i, _len, _ref;
-      ApplicationService.characterID = characterID;
+      var character, characterName, _i, _len, _ref;
+      ApplicationService.set('characterID', characterID);
       _ref = $scope.characters;
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
         character = _ref[_i];
         if (character.characterID === characterID) {
-          ApplicationService.characterName = character.characterName;
+          characterName = character.characterName;
         }
       }
+      ApplicationService.set('characterName', characterName);
       return $location.path('/apply/corporations');
     };
   });
@@ -28967,8 +29004,8 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
           break;
         }
       }
-      ApplicationService.corporationID = corporation.id;
-      ApplicationService.corporationName = corporation.name;
+      ApplicationService.set('corporationID', corporation.id);
+      ApplicationService.set('corporationName', corporation.name);
       if (corporation.reddit) {
         return $window.location.href = $('base').attr('href') + 'reddit/go';
       } else {
@@ -28978,8 +29015,8 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
   });
 
   hrApp.controller('redditCtrl', function($location, ApplicationService, $routeParams) {
-    ApplicationService.redditKey = $routeParams.key;
-    ApplicationService.redditUsername = $routeParams.reddit_username;
+    ApplicationService.set('redditKey', $routeParams.key);
+    ApplicationService.set('redditUsername', $routeParams.reddit_username);
     $location.$$search = {};
     return $location.path('/apply/recap');
   });
@@ -28994,18 +29031,18 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
         return false;
       }
       data = {
-        'key_id': ApplicationService.keyID,
-        'vcode': ApplicationService.vCode,
-        'character_id': ApplicationService.characterID,
-        'character_name': ApplicationService.characterName,
-        'corporation_id': ApplicationService.corporationID,
-        'corporation_name': ApplicationService.corporationName,
+        'key_id': ApplicationService.getInt('keyID'),
+        'vcode': ApplicationService.get('vCode'),
+        'character_id': ApplicationService.getInt('characterID'),
+        'character_name': ApplicationService.get('characterName'),
+        'corporation_id': ApplicationService.getInt('corporationID'),
+        'corporation_name': ApplicationService.get('corporationName'),
         'motivation': $scope.motivation,
         'email': $scope.email
       };
       if (ApplicationService.redditKey != null) {
-        data['reddit_key'] = ApplicationService.redditKey;
-        data['reddit_username'] = ApplicationService.redditUsername;
+        data['reddit_key'] = ApplicationService.get('redditKey');
+        data['reddit_username'] = ApplicationService.get('redditUsername');
       }
       return $http({
         method: 'POST',
@@ -29023,6 +29060,11 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
         }
       });
     };
+  });
+
+  hrApp.controller('notFoundCtrl', function($location) {
+    console.log('yo');
+    return window.location.href = $('base').attr('href') + '/404';
   });
 
   hrApp.config(function($routeProvider, $locationProvider) {
@@ -29052,11 +29094,24 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
     $routeProvider.when('/apply/done', {
       templateUrl: 'templates/angular/done.html'
     });
+    $routeProvider.when('/apply/reset', {
+      controller: function($location, ApplicationService) {
+        ApplicationService.reset();
+        return $location.path('/apply');
+      },
+      template: '<div></div>'
+    });
     $routeProvider.when('/apply/not_found', {
-      templateUrl: 'templates/angular/not_found.html'
+      controller: function() {
+        return window.location.replace('/404');
+      },
+      template: '<div></div>'
     });
     $routeProvider.otherwise({
-      redirectTo: '/apply/not_found'
+      controller: function() {
+        return window.location.replace('/404');
+      },
+      template: '<div></div>'
     });
     return $locationProvider.html5Mode(true);
   });
@@ -29127,7 +29182,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"row\">\n" +
@@ -29175,7 +29230,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -29207,7 +29262,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"row\">\n" +
@@ -29263,7 +29318,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -29275,21 +29330,21 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"row\">\n" +
     "    <div class=\"col-md-6 col-md-offset-3 recap-illustrations\">\n" +
-    "        <img ng-src=\"https://image.eveonline.com/Character/{[{app.characterID}]}_256.jpg\" alt=\"\" class=\"thumbnail\">\n" +
+    "        <img ng-src=\"https://image.eveonline.com/Character/{[{app.getInt('characterID')}]}_256.jpg\" alt=\"\" class=\"thumbnail\">\n" +
     "        <i class=\"fa fa-arrow-right fa-3x\"></i>\n" +
-    "        <img ng-src=\"https://image.eveonline.com/Corporation/{[{app.corporationID}]}_256.png\" alt=\"\" class=\"thumbnail\">\n" +
+    "        <img ng-src=\"https://image.eveonline.com/Corporation/{[{app.getInt('corporationID')}]}_256.png\" alt=\"\" class=\"thumbnail\">\n" +
     "    </div>\n" +
     "    <div class=\"col-md-6 col-md-offset-3\">\n" +
     "        <dl class=\"dl-horizontal text-center\">\n" +
     "            <dt>Applicant</dt>\n" +
-    "            <dd>{[{app.characterName}]}</dd>\n" +
+    "            <dd>{[{app.get('characterName')}]}</dd>\n" +
     "            <dt>Corporation</dt>\n" +
-    "            <dd>{[{app.corporationName}]}</dd>\n" +
+    "            <dd>{[{app.get('corporationName')}]}</dd>\n" +
     "            <dt>Alliance</dt>\n" +
     "            <dd>I Whip My Slaves Back and Forth</dd>\n" +
-    "            <div ng-show=\"app.redditUsername\">\n" +
+    "            <div ng-show=\"app.get('redditUsername')\">\n" +
     "                <dt>Reddit Username</dt>\n" +
-    "                <dd>{[{app.redditUsername}]}</dd>\n" +
+    "                <dd>{[{app.get('redditUsername')}]}</dd>\n" +
     "            </div>\n" +
     "        </dl>\n" +
     "        <h3 class=\"subline\">Email</h3>\n" +

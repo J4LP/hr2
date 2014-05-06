@@ -9,6 +9,7 @@
     "datatables-bootstrap3": "*",
     "datatables": "~1.9.4",
     "bootbox": "~4.2.0",
-    "jquery": "~2.1.0"
+    "jquery": "~2.1.0",
+    "angular-local-storage": "~0.0.3"
   }
 }

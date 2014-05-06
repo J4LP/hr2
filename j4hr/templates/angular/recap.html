@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="col-md-1">
-        <a href="#" class="btn btn-warning btn-xs btn-block">Reset</a>
+        <a ng-href="/apply/reset" class="btn btn-warning btn-xs btn-block">Reset</a>
     </div>
 </div>
 
@@ -17,21 +17,21 @@
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3 recap-illustrations">
-        <img ng-src="https://image.eveonline.com/Character/{[{app.characterID}]}_256.jpg" alt="" class="thumbnail">
+        <img ng-src="https://image.eveonline.com/Character/{[{app.getInt('characterID')}]}_256.jpg" alt="" class="thumbnail">
         <i class="fa fa-arrow-right fa-3x"></i>
-        <img ng-src="https://image.eveonline.com/Corporation/{[{app.corporationID}]}_256.png" alt="" class="thumbnail">
+        <img ng-src="https://image.eveonline.com/Corporation/{[{app.getInt('corporationID')}]}_256.png" alt="" class="thumbnail">
     </div>
     <div class="col-md-6 col-md-offset-3">
         <dl class="dl-horizontal text-center">
             <dt>Applicant</dt>
-            <dd>{[{app.characterName}]}</dd>
+            <dd>{[{app.get('characterName')}]}</dd>
             <dt>Corporation</dt>
-            <dd>{[{app.corporationName}]}</dd>
+            <dd>{[{app.get('corporationName')}]}</dd>
             <dt>Alliance</dt>
             <dd>I Whip My Slaves Back and Forth</dd>
-            <div ng-show="app.redditUsername">
+            <div ng-show="app.get('redditUsername')">
                 <dt>Reddit Username</dt>
-                <dd>{[{app.redditUsername}]}</dd>
+                <dd>{[{app.get('redditUsername')}]}</dd>
             </div>
         </dl>
         <h3 class="subline">Email</h3>

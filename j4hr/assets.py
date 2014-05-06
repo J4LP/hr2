@@ -15,6 +15,7 @@ application_js = Bundle(
     "../bower_components/angular-route/angular-route.js",
     "../bower_components/angular-bootstrap/ui-bootstrap.js",
     "../bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+    "../bower_components/angular-local-storage/angular-local-storage.min.js",
     "../bower_components/bootstrap/dist/js/bootstrap.min.js",
     Bundle(
         "js/application.js",

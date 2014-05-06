@@ -62,7 +62,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"row\">\n" +
@@ -110,7 +110,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -142,7 +142,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "<div class=\"row\">\n" +
@@ -198,7 +198,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-1\">\n" +
-    "        <a href=\"#\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
+    "        <a ng-href=\"/apply/reset\" class=\"btn btn-warning btn-xs btn-block\">Reset</a>\n" +
     "    </div>\n" +
     "</div>\n" +
     "\n" +
@@ -210,21 +210,21 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "\n" +
     "<div class=\"row\">\n" +
     "    <div class=\"col-md-6 col-md-offset-3 recap-illustrations\">\n" +
-    "        <img ng-src=\"https://image.eveonline.com/Character/{[{app.characterID}]}_256.jpg\" alt=\"\" class=\"thumbnail\">\n" +
+    "        <img ng-src=\"https://image.eveonline.com/Character/{[{app.getInt('characterID')}]}_256.jpg\" alt=\"\" class=\"thumbnail\">\n" +
     "        <i class=\"fa fa-arrow-right fa-3x\"></i>\n" +
-    "        <img ng-src=\"https://image.eveonline.com/Corporation/{[{app.corporationID}]}_256.png\" alt=\"\" class=\"thumbnail\">\n" +
+    "        <img ng-src=\"https://image.eveonline.com/Corporation/{[{app.getInt('corporationID')}]}_256.png\" alt=\"\" class=\"thumbnail\">\n" +
     "    </div>\n" +
     "    <div class=\"col-md-6 col-md-offset-3\">\n" +
     "        <dl class=\"dl-horizontal text-center\">\n" +
     "            <dt>Applicant</dt>\n" +
-    "            <dd>{[{app.characterName}]}</dd>\n" +
+    "            <dd>{[{app.get('characterName')}]}</dd>\n" +
     "            <dt>Corporation</dt>\n" +
-    "            <dd>{[{app.corporationName}]}</dd>\n" +
+    "            <dd>{[{app.get('corporationName')}]}</dd>\n" +
     "            <dt>Alliance</dt>\n" +
     "            <dd>I Whip My Slaves Back and Forth</dd>\n" +
-    "            <div ng-show=\"app.redditUsername\">\n" +
+    "            <div ng-show=\"app.get('redditUsername')\">\n" +
     "                <dt>Reddit Username</dt>\n" +
-    "                <dd>{[{app.redditUsername}]}</dd>\n" +
+    "                <dd>{[{app.get('redditUsername')}]}</dd>\n" +
     "            </div>\n" +
     "        </dl>\n" +
     "        <h3 class=\"subline\">Email</h3>\n" +
