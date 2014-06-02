@@ -138,7 +138,7 @@ hrApp.controller 'recapCtrl', ($http, $location, $scope, AlertsService, Applicat
       'motivation': $scope.motivation,
       'email': $scope.email
     }
-    if ApplicationService.redditKey?
+    if ApplicationService.get('redditKey') != ''
       data['reddit_key'] = ApplicationService.get('redditKey')
       data['reddit_username'] = ApplicationService.get('redditUsername')
     $http {method: 'POST', url: 'api/application', data}

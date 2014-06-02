@@ -29040,7 +29040,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
         'motivation': $scope.motivation,
         'email': $scope.email
       };
-      if (ApplicationService.redditKey != null) {
+      if (ApplicationService.get('redditKey') !== '') {
         data['reddit_key'] = ApplicationService.get('redditKey');
         data['reddit_username'] = ApplicationService.get('redditUsername');
       }
@@ -29302,7 +29302,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        </div>\n" +
     "        <div class=\"text-center\">\n" +
     "            <h3>\n" +
-    "                <a href=\"#\">Back to J4LP</a>\n" +
+    "                <a href=\"/\" target=\"_self\">Back to J4LP</a>\n" +
     "            </h3>\n" +
     "        </div>\n" +
     "\n" +

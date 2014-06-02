@@ -203,7 +203,7 @@
         'motivation': $scope.motivation,
         'email': $scope.email
       };
-      if (ApplicationService.redditKey != null) {
+      if (ApplicationService.get('redditKey') !== '') {
         data['reddit_key'] = ApplicationService.get('redditKey');
         data['reddit_username'] = ApplicationService.get('redditUsername');
       }
