@@ -241,8 +241,6 @@ def user_view(user_id):
     )
 
 
-
-
 @admin.route('/login')
 def login():
     state = {'next': request.args.get('next') or request.referrer or url_for('home', _external=True)}
@@ -263,12 +261,14 @@ def authorize(resp):
     except cPickle.PickleError:
         state = {'next': url_for('home', _external=True)}
     if 'access_token' in resp:
+        groups = hr_oauth.get('auth_groups', token=(resp['access_token'],)).data['groups']
+        if not any([x in groups for x in app.config['HR_GROUPS']]):
+            flash('You are not authorized to access this application.', 'danger')
+            return redirect(url_for('home'))
         session['j4oauth_token'] = (resp['access_token'], '')
         session['current_user'] = hr_oauth.get('auth_user').data['user']
-        # Is he admin ?
-        groups = hr_oauth.get('auth_groups').data['groups']
         session['admin'] = False
-        if 'admin' in groups:
+        if any([x in groups for x in app.config['ADMIN_GROUPS']]):
             session['admin'] = True
         flash('Welcome back {}!'.format(
             session['current_user']['main_character']), 'success')

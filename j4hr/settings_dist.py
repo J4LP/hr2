@@ -18,6 +18,8 @@ class Config(object):
         'ALLIANCE_KEY_ID': 0,
         'ALLIANCE_KEY_VCODE': ''
     }
+    HR_GROUPS = ('hr',)  # Tuple of groups to allow access to administration
+    ADMIN_GROUPS = ('admin',)  # Tuple of groups to allow super admin.
 
 
 class ProdConfig(Config):
