@@ -34,7 +34,6 @@ home_js = Bundle(
 
 admin_js = Bundle(
     "../bower_components/jquery/dist/jquery.min.js",
-    "../bower_components/angular/angular.js",
     "../bower_components/bootstrap/dist/js/bootstrap.min.js",
     "../bower_components/datatables/media/js/jquery.dataTables.js",
     "../bower_components/datatables-bootstrap3/BS3/assets/js/datatables.js",

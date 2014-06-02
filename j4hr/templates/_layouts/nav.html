@@ -8,21 +8,21 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url_for('home') }}">
+            <a class="navbar-brand" href="{{ url_for('home') }}" target="_self">
                 Human {{ icon('users') }} Resources
             </a>
             <ul class="navbar-nav nav">
                 {% if session.admin == True %}
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Administration <b class="caret"></b></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" target="_self">Administration <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url_for('admin.index') }}">Dashboard</a></li>
-                            <li><a href="{{ url_for('admin.users') }}">List Users</a></li>
+                            <li><a href="{{ url_for('admin.index') }}" target="_self">Dashboard</a></li>
+                            <li><a href="{{ url_for('admin.users') }}" target="_self">List Users</a></li>
                         </ul>
                     </li>
                 {% endif %}
                 {% if session.current_user %}
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                    <li><a href="{{ url_for('logout') }}" target="_self">Logout</a></li>
                 {% endif %}
             </ul>
         </div>
