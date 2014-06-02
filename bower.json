@@ -6,10 +6,13 @@
     "angular": "~1.2.12",
     "animate.css": "~3.0.0",
     "angular-route": "~1.2.12",
-    "datatables-bootstrap3": "*",
-    "datatables": "~1.9.4",
     "bootbox": "~4.2.0",
     "jquery": "~2.1.0",
-    "angular-local-storage": "~0.0.3"
+    "angular-local-storage": "~0.0.3",
+    "datatables": "~1.10.0",
+    "datatables-plugins": "*"
+  },
+  "resolutions": {
+    "jquery": "~2.1.0"
   }
 }

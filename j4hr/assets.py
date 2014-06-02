@@ -36,13 +36,13 @@ admin_js = Bundle(
     "../bower_components/jquery/dist/jquery.min.js",
     "../bower_components/bootstrap/dist/js/bootstrap.min.js",
     "../bower_components/datatables/media/js/jquery.dataTables.js",
-    "../bower_components/datatables-bootstrap3/BS3/assets/js/datatables.js",
+    "../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js",
     "../bower_components/bootbox/bootbox.js",
     output="public/js/admin.js"
 )
 
 admin_css = Bundle(
-    "../bower_components/datatables-bootstrap3/BS3/assets/css/datatables.css",
+    "../bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css",
     filters="cssmin",
     output="public/css/admin.css"
 )
