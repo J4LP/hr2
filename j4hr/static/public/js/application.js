@@ -29050,6 +29050,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
         data: data
       }).success(function(data) {
         if (data.result === 'success') {
+          ApplicationService.reset();
           return $location.path('/apply/done');
         }
       }).error(function(data, status, headers) {
