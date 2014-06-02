@@ -35,6 +35,7 @@
                             <strong>{{ app.applicant.character_name }}</strong> applied to <strong>{{ app.corporation.corporation_name }}</strong> {{ app.created_at|humanize }}
                         </a>
                     {% endfor %}
+                    <a href="{{ url_for('admin.applications') }}" class="list-group-item">View all applications.</a>
                 </div>
             </div>
         </div>

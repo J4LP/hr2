@@ -27,7 +27,10 @@ def get_oauth_token(token=None):
 @admin.route('/')
 @login_required
 def index():
-    pending_apps = mongo.db.applications.find({'status': Status.Pending.value})
+    if session['admin']:
+        pending_apps = mongo.db.applications.find({'status': Status.Pending.value})
+    else:
+        pending_apps = mongo.db.applications.find({'status': Status.Pending.value, 'corporation.corporation_name': session['current_user']['corporation']})
     activities = mongo.db.activities.find()
     return render_template('index.html', pending_apps=pending_apps, activities=activities)
 
