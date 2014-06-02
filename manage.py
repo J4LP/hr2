@@ -1,15 +1,10 @@
 #!/usr/bin/env python
 import datetime
 import json
-import logging
 import redis
-import sys
 import os
-import subprocess
 from flask.ext.assets import ManageAssets
-from flask.ext.migrate import MigrateCommand
 from flask.ext.script import Manager, Shell, Server
-from webassets.script import CommandLineEnvironment
 from j4hr.app import assets_env, mongo
 from j4hr.evetools import EveTools
 from j4hr.main import app
@@ -53,8 +48,7 @@ def update_corporations():
             members=corporation_sheet.memberCount,
             reddit=False,
             active=True)
-        if member_corporation.corporationID in app.config['EVE'][
-            'DISABLED_CORPORATIONS']:
+        if member_corporation.corporationID in app.config['EVE']['DISABLED_CORPORATIONS']:
             corporation['active'] = False
         if app.config['REDDIT']['ENABLED']:
             if member_corporation.corporationID in app.config['REDDIT']['CORPORATIONS']:
@@ -66,6 +60,7 @@ def update_corporations():
         for corporation in corporations:
             mongo.db.corporations.update({'corporation_id': corporation['corporation_id']}, corporation, upsert=True)
     app.logger.info('Corporations updated with success !')
+
 
 @manager.command
 def update_outposts():
@@ -88,12 +83,10 @@ def clean_activities():
     app.logger.info('Activities cleaned !')
 
 
-
 manager.add_command("runserver",
                     Server(host='0.0.0.0', port=os.getenv('PORT', 5000),
                            debug=True))
 manager.add_command("shell", Shell(make_context=_make_context))
-manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     manager.run()
