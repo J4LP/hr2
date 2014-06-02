@@ -75,6 +75,7 @@ def generate_application_report(application_id=None, user_id=None):
                 return redirect(url_for('.user_view', user_id=user_id))
             return redirect(url_for('.view_application', application_id=application_id))
         else:
+            report['started_at'] = datetime.datetime.utcnow()
             report['generating'] = True
     else:
         if user_id:
