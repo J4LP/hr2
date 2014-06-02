@@ -242,6 +242,16 @@ def user_view(user_id):
     )
 
 
+@admin.route('/applications')
+@login_required
+def applications():
+    if session['admin']:
+        applications = mongo.db.applications.find()
+    else:
+        applications = mongo.db.applications.find({'corporation.corporation_name': session['current_user']['corporation']})
+    return render_template('applications.html', applications=applications, Status=Status)
+
+
 @admin.route('/login')
 def login():
     state = {'next': request.args.get('next') or request.referrer or url_for('home', _external=True)}

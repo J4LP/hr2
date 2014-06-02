@@ -73,7 +73,15 @@ def datetime_filter(datetime):
     """
     Use arrow to format properly a date
     """
-    return arrow.get(datetime).format('DD MMMM YYYY - hh:ss')
+    return arrow.get(datetime).format('DD MMMM YYYY - H:mm UTC')
+
+
+@app.template_filter('timestamp')
+def timestamp_filter(datetime):
+    """
+    Use arrow to format properly a date
+    """
+    return arrow.get(datetime).format('X')
 
 
 @app.context_processor

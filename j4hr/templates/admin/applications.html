@@ -1,0 +1,57 @@
+
+{% extends "_layouts/base.html" %}
+{% block js %}
+    {% assets "admin_js" %}
+        <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}
+{% block css %}
+    {{ super() }}
+    {% assets "admin_css" %}
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+    {% endassets %}
+{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="subline">Applications</h2>
+    </div>
+    <div class="col-md-12">
+        <table class="table apps-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Corporation applied</th>
+                    <th>Applied at</th>
+                    <th>Timestamp</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in applications %}
+                    <tr>
+                        <td><a href="{{url_for('admin.view_application', application_id=application._id|string)}}">{{application.applicant.character_name}}</a></td>
+                        <td>{{application.corporation.corporation_name}}</td>
+                        <td>{{application.created_at|datetime}} <small>{{application.created_at|humanize}}</small></td>
+                        <td>{{application.created_at|timestamp}}</td>
+                        <td>{{ Status(application.status).name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function () {
+                $('.apps-table').dataTable({
+                    "aoColumns": [
+                        null,
+                        null,
+                        { 'iDataSort': 3},
+                        { 'bVisible': false, 'bSearchable': false },
+                        null
+                    ]
+                })
+            });
+        </script>
+    </div>
+</div>
+{% endblock %}
