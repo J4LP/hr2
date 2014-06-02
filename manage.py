@@ -83,6 +83,14 @@ def clean_activities():
     app.logger.info('Activities cleaned !')
 
 
+@manager.command
+def clean_reports():
+    """Remove reports that have been stuck generating for 15 minutes."""
+    with app.app_context():
+        reports = mongo.db.reports.remove({'started_at': {'$lt': datetime.datetime.utcnow() - datetime.timedelta(minutes=15)}, 'generating': True})
+        app.logger.info('{} reports deleted.'.format(reports['n']))
+
+
 manager.add_command("runserver",
                     Server(host='0.0.0.0', port=os.getenv('PORT', 5000),
                            debug=True))

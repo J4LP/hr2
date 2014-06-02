@@ -4,6 +4,7 @@ from bson.objectid import ObjectId
 from enum import Enum
 from flask import abort, Blueprint, flash, redirect, render_template, request, session, url_for
 import datetime
+import pytz
 from j4hr.activity import Action, Activity
 from j4hr.app import app, hr_oauth, mongo, rQueue, api_oauth
 from j4hr.report import make_report
@@ -38,6 +39,11 @@ def view_application(application_id):
     if application is None:
         abort(404)
     report = mongo.db.reports.find_one({'user_id': application['applicant']['user_id']})
+    generated_time_limit = datetime.datetime.utcnow().replace(tzinfo=pytz.utc) - datetime.timedelta(minutes=15)
+    if report and report['started_at'] < generated_time_limit and report['generating'] is True:
+        app.logger.info("Report for {} has been deleted because it exceeded its time limit.".format(application_id))
+        mongo.db.reports.remove(report)
+        report = None
     return render_template('view_application.html',
                            application=application,
                            Status=Status,
@@ -221,6 +227,11 @@ def user_view(user_id):
         ))
         return redirect('admin.index')
     report = mongo.db.reports.find_one({'user_id': user_id})
+    generated_time_limit = datetime.datetime.utcnow().replace(tzinfo=pytz.utc) - datetime.timedelta(minutes=15)
+    if report and report['started_at'] < generated_time_limit and report['generating'] is True:
+        mongo.db.reports.remove(report)
+        app.logger.info("Report for {} has been deleted because it exceeded its time limit.".format(user_id))
+        report = None
     user_notes = mongo.db.notes.find_one({'user_id': user_id})
     return render_template(
         'auth_user.html',
