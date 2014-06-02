@@ -58,7 +58,7 @@ hr_oauth = oauth.remote_app(
     app_key='J4OAUTH'
 )
 
-rQueue = Queue(connection=redis.StrictRedis(app.config['REDIS']))
+rQueue = Queue('hr2', connection=redis.StrictRedis(app.config['REDIS']))
 
 api_oauth = requests.Session()
 api_oauth.headers.update({

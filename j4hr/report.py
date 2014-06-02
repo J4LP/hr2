@@ -8,8 +8,9 @@ from j4hr.evetools import EveTools
 def make_report(report_id):
     with app.app_context():
         report = original = mongo.db.reports.find_one({'_id': ObjectId(report_id)})
-    # if report.get('generating', False) is True:
-    #     raise Exception('Report #{report_id} already generating, aborting...'.format(report_id=report_id))
+
+    if not report:
+        raise Exception('Report #{report_id} was not found, aborting...'.format(report_id=report_id))
 
     try:
         if 'api' in report:
