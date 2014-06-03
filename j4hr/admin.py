@@ -215,6 +215,30 @@ def users():
     return render_template('users.html', users=users.json()['users'])
 
 
+@admin.route('/users_search')
+@login_required
+def search_user():
+    query = request.args.get('query')
+    if not query:
+        return redirect(url_for('.users'))
+    query = query.lower().replace(' ', '_')
+    user = api_oauth.get('{base}user/{query}'.format(
+        base=app.config['J4OAUTH']['base_url'],
+        query=query
+    ))
+    if user.status_code == 404:
+        flash('User not found...', 'warning')
+        return redirect(url_for('.users'))
+    elif user.status_code == 200:
+        return redirect(url_for('.user_view', user_id=query))
+    else:
+        print(user.status_code)
+        flash('There was an error looking for this user in OAuth.', 'danger')
+        return redirect(url_for('.index'))
+
+
+
+
 @admin.route('/users/<user_id>')
 @login_required
 def user_view(user_id):

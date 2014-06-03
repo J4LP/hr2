@@ -12,13 +12,14 @@
                 <h2>Human Resources</h2>
             </div>
             <div class="col-md-4">
+                <form action="{{ url_for('admin.search_user', query='') }}">
                 <div class="input-group pull-right">
-                    <input class="form-control" type="text" placeholder="Quick User Search">
+                    <input class="form-control" type="text" name="query" placeholder="Quick User Search">
                     <span class="input-group-btn">
-                        <a class="btn btn-primary" href="{{ url_for('admin.users') }}">{{ icon('list') }} User List</a>
+                        <button class="btn btn-primary" type="submit">{{ icon('search') }} Lookup</a>
                     </span>
                 </div>
-
+                </form>
             </div>
         </div>
     </div>
