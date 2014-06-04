@@ -15,7 +15,7 @@ angular.module('hrApp').run(['$templateCache', function($templateCache) {
     "        <p>Please note that daily checks are in place and your access will be revoked if the system locates an incorrect API or at the discretion of the Alliance Leadership.</p>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-12 text-center\">\n" +
-    "        <h4><a href=\"https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=65544538\" target=\"_blank\">Generate an API Key here, without an EXPIRY set</a></h4>\n" +
+    "        <h4><a href=\"https://community.eveonline.com/support/api-key/CreatePredefined?accessMask=65544538\" target=\"_blank\">CLICK HERE TO GENERATE AN API, CHECK NO EXPIRY, NAME IT, TOUCH NOTHING ELSE AND HIT SUBMIT</a></h4>\n" +
     "    </div>\n" +
     "    <div class=\"col-md-12\">\n" +
     "        <form name=\"apiForm\" class=\"form-horizontal col-md-8 col-md-offset-2 api-form\" ng-submit=\"checkApiKey()\" novalidate>\n" +
